@@ -9,6 +9,6 @@ class WechatApiController extends Controller
     //
     public function getMsgJson()
     {
-        return json_encode(['name'=>'hu']);
+        return json_encode(['name'=>'hu4']);
     }
 }
