@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/css/app.css">
 
         <!-- Styles -->
         <style>
@@ -94,5 +95,6 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="/js/app.js"></script>
     </body>
 </html>

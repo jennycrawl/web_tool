@@ -6,8 +6,12 @@
  */
 
 require('./bootstrap');
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+import JsonExcel from 'vue-json-excel'
 
 window.Vue = require('vue');
+Vue.use(ElementUI);
 
 /**
  * The following block of code may be used to automatically register your
@@ -18,9 +22,19 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('downloadExcel', JsonExcel);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
+
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+import store from './store/'; // vuex 数据存储所需对象
+import routes from './routes';    // 路由配置文件
+// 实例化路由
+const router = new VueRouter({
+    routes
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,6 +42,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+/*const app = new Vue({
     el: '#app'
-});
+});*/
+const app = new Vue({
+  store,
+  router
+}).$mount('#app');
