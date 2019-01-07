@@ -110,16 +110,14 @@ class WechatApiController extends Controller
         }
         
         $currentTime = date('Y-m-d H:i:s');
-        if ($read != $dbMsg->read || $like != $dbMsg->like) {
-            DB::table('wechat_msg')
-                ->where('id', $dbMsg->id)
-                ->update([
-                    'read'          => intval($read),
-                    'like'          => intval($like),
-                    'crawl_status'  => 2,//抓取完成
-                    'update_time'   => $currentTime,
-                ]);
-        }
+        DB::table('wechat_msg')
+            ->where('id', $dbMsg->id)
+            ->update([
+                'read'          => intval($read),
+                'like'          => intval($like),
+                'crawl_status'  => 2,//抓取完成
+                'update_time'   => $currentTime,
+            ]);
 
         return json_encode(['success' => true, 'msg' => 'success']);
     }

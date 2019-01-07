@@ -5,7 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+//require('./bootstrap');
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import JsonExcel from 'vue-json-excel'

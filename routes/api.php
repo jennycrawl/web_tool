@@ -17,4 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/wechat/{id}', 'WechatApiController@getMsgJson');
+Route::post('/wechat/pushMsgJson/', 'WechatApiController@pushMsgJson');
+Route::post('/wechat/pushMsgExt/', 'WechatApiController@pushMsgExt');
+Route::get('/wechat/getWxHis/', 'WechatApiController@getWxHis');
+Route::get('/wechat/getWxPost/', 'WechatApiController@getWxPost');
+Route::get('/wechat/getMsgList/', 'WechatApiController@getMsgList');
+
+Route::get('/wechat/account/list', 'WechatAccountController@getAccountList');
+Route::get('/wechat/statistics', 'WechatStatisticsController@getStatistics');
+
+Route::get('/weibo/account/list', 'WeiboAccountController@getAccountList');
+Route::get('/weibo/statistics', 'WeiboStatisticsController@getStatistics');
