@@ -20,7 +20,7 @@ export default{
   },
   actions: {
     getStatisticsList({commit}, params) {
-      api.getWeiboStatisticsList(params).then(function(res) {
+      api.getWechatStatisticsList(params).then(function(res) {
         if (res.data['success'] && res.data['msg']) {
           commit('setStatisticsList', res.data.msg);
         } else {
@@ -29,7 +29,7 @@ export default{
       });
     },
     getMsgList({commit}, params) {
-      api.getWeiboMsgList(params).then(function(res) {
+      api.getWechatMsgList(params).then(function(res) {
         if (res.data['success'] && res.data['msg']) {
           commit('setMsgList', res.data.msg);
         } else {
@@ -38,7 +38,7 @@ export default{
       });
     },
     getAccountList({commit}, params) {
-      api.getWeiboAccountList(params).then(function(res) {
+      api.getWechatAccountList(params).then(function(res) {
         if (res.data['success'] && res.data['msg']) {
           commit('setAccountList', res.data.msg);
         } else {

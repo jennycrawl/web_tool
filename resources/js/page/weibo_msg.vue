@@ -1,7 +1,7 @@
 <template>
   <el-main>
     <el-form :inline="true" :model="searchForm" class="demo-form-inline" ref="refname">
-      <el-form-item label="名称" prop="accountId">
+      <el-form-item label="账号" prop="accountId">
         <el-select v-model="searchForm.accountId" filterable placeholder="请选择">
         <el-option
           v-for="item in accountList"
@@ -11,7 +11,7 @@
         </el-option>
       </el-select>
       </el-form-item>
-      <el-form-item label="日期选择" prop="dateRange">
+      <el-form-item label="发布日期" prop="dateRange">
         <el-date-picker
           v-model="searchForm.dateRange"
           type="daterange"
@@ -30,80 +30,66 @@
       <el-form-item>
         <el-button type="warning" @click="onClear('refname')">清空<i class="el-icon-delete el-icon--right"></i></el-button>
       </el-form-item>
-      <el-form-item>
-        <download-excel
-            class = "export-excel-wrapper"
-            :data = "list"
-            :fields = "excelFields"
-            name = "wechat.xls">
-            <el-button type="primary">导出<i class="el-icon-download el-icon--right"></i></el-button>
-        </download-excel>
-      </el-form-item>
     </el-form>
     <el-table
-      :data="list"
-      style="width: 100%">
+      :data="list.msg_list"
+      fixed="left"
+      style="width: 100%"
+      @sort-change="onSortChange"
+      ref="table">
       <el-table-column
         prop="id"
         label="id"
-        sortable>
+        sortable="custom">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="名称"
+        prop="account_name"
+        label="账号"
         >
       </el-table-column>
       <el-table-column
-        prop="count"
-        label="文章数"
-        sortable>
+        prop="url"
+        label="url"
+        >
+        <template slot-scope="scope">
+            <a :href="scope.row.url"
+                target="_blank" class="buttonText">{{scope.row.url}}
+            </a>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="read_sum"
-        label="总阅读数"
-        sortable>
+        prop="forward"
+        label="转发"
+        sortable="custom">
       </el-table-column>
       <el-table-column
-        prop="like_sum"
-        label="总点赞数"
-        sortable>
+        prop="comment"
+        label="评论"
+        sortable="custom">
       </el-table-column>
       <el-table-column
-        prop="read_avg"
-        label="平均阅读数"
-        sortable>
+        prop="like"
+        label="点赞"
+        sortable="custom">
       </el-table-column>
       <el-table-column
-        prop="like_avg"
-        label="平均点赞数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="read_max"
-        label="最大阅读数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="like_max"
-        label="最大点赞数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="read_min"
-        label="最小阅读数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="like_min"
-        label="最小点赞数"
-        sortable>
+        prop="pubtime"
+        label="发布时间"
+        sortable="custom">
       </el-table-column>
       <el-table-column
         prop="crawl_time"
-        label="抓取时间"
-        sortable>
+        label="抓取时间">
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="total, prev, pager, next, jumper"
+      @current-change="onCurrentPageChange"
+      :current-page.sync="list.current_page"
+      :page-size="20"
+      :total="list.total">
+    </el-pagination>
   </el-main>
 </template>
 
@@ -115,6 +101,9 @@
             searchForm: {
                 dateRange: '',
                 accountId: '',
+                page: '',
+                sortProp: '',
+                sortOrder: '',
             },
             pickerOptions1: {
               disabledDate(time) {
@@ -162,35 +151,20 @@
                 }
               }]
             },
-            excelFields:{
-                '名称':'name',
-                '文章数':'count',
-                '总阅读数':'read_sum',
-                '总点赞数':'like_sum',
-                '平均阅读数':'read_avg',
-                '平均点赞数':'like_avg',
-                '最大阅读数':'read_max',
-                '最大点赞数':'like_max',
-                '最小阅读数':'read_min',
-                '最小点赞数':'like_min',
-                '抓取时间':'crawl_time',
-            },
         }
       },
       computed: mapState({
-        list: state => state.Wechat.statisticsList,
-        accountList: state => state.Wechat.accountList,
+        list: state => state.Weibo.msgList,
+        accountList: state => state.Weibo.accountList,
       }),
       created() {
-        //this.WechatStatistics.getWechatStatisticsList();  
-        //this.getWechatAccountList();  
-        this.$store.dispatch('Wechat/getStatisticsList');
-        this.$store.dispatch('Wechat/getAccountList');
+        this.$store.dispatch('Weibo/getMsgList');
+        this.$store.dispatch('Weibo/getAccountList');
       },
       methods: {
         ...mapActions([
-            'Wechat/getStatisticsList',
-            'Wechat/getAccountList',
+            'Weibo/getMsgList',
+            'Weibo/getAccountList',
         ]),
         onSubmit() {
            var params = {};
@@ -205,11 +179,47 @@
                    params.end_date = this.searchForm.dateRange[1]
                }
            }
-           this.$store.dispatch('Wechat/getStatisticsList', params);
+           this.$store.dispatch('Weibo/getMsgList', params);
         },
         onClear(refname) {
-                this.$refs[refname].resetFields();
-            this.$store.dispatch('Wechat/getStatisticsList', {});
+            this.$refs[refname].resetFields();
+            this.$store.dispatch('Weibo/getMsgList', {});
+            this.$refs['table'].clearSort();
+        },
+        onCurrentPageChange(val) {
+            this.searchForm.page = val;
+            this.$store.dispatch('Weibo/getMsgList', this.genFormParams());
+        },
+        onSortChange(column) {
+            this.searchForm.sortProp = column.prop;
+            if (column.order == 'descending') {
+                this.searchForm.sortOrder = 'desc';
+            } else if (column.order == 'ascending') {
+                this.searchForm.sortOrder = 'asc';
+            }
+            this.$store.dispatch('Weibo/getMsgList', this.genFormParams());
+        },
+        genFormParams() {
+           var params = {};
+           if (this.searchForm.accountId) {
+               params.account_id = this.searchForm.accountId;
+           }
+           if (this.searchForm.dateRange instanceof Array) {
+               if (this.searchForm.dateRange[0]) {
+                   params.start_date = this.searchForm.dateRange[0]
+               }
+               if (this.searchForm.dateRange[1]) {
+                   params.end_date = this.searchForm.dateRange[1]
+               }
+           }
+           if (this.searchForm.page) {
+                params.page = this.searchForm.page;
+           }
+           if (this.searchForm.sortProp && this.searchForm.sortOrder) {
+                params.sort_field = this.searchForm.sortProp;
+                params.sort_order = this.searchForm.sortOrder;
+           }
+           return params;
         },
       },
     });
