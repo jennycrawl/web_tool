@@ -13,13 +13,11 @@
              <template slot="title">微博</template>
              <el-menu-item index="/weibo/statistics">统计结果</el-menu-item>
              <el-menu-item index="/weibo/msg">详细数据</el-menu-item>
-             <el-menu-item index="/weibo/account">微博号配置</el-menu-item>
            </el-submenu>
            <el-submenu index="wechat">
              <template slot="title">微信</template>
              <el-menu-item index="/wechat/statistics">统计结果</el-menu-item>
              <el-menu-item index="/wechat/msg">详细数据</el-menu-item>
-             <el-menu-item index="/wechat/account">公众号配置</el-menu-item>
            </el-submenu>
         </el>
     </div>

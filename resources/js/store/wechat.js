@@ -46,5 +46,20 @@ export default{
         }
       });
     },
+    insertAccount({commit}, params) {
+      return api.insertWechatAccount(params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
+    updateAccount({commit}, {id, params}) {
+      return api.updateWechatAccount(id, params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
+    deleteAccount({commit}, {id, params}) {
+      return api.deleteWechatAccount(id, params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
   }
 }

@@ -46,5 +46,20 @@ export default{
         }
       });
     },
+    insertAccount({commit}, params) {
+      return api.insertWeiboAccount(params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
+    updateAccount({commit}, {id, params}) {
+      return api.updateWeiboAccount(id, params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
+    deleteAccount({commit}, {id, params}) {
+      return api.deleteWeiboAccount(id, params).then(function(res) {
+        return {status:res.status,data:res.data}
+      });
+    },
   }
 }

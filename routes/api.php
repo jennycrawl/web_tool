@@ -24,7 +24,15 @@ Route::get('/wechat/getWxPost/', 'WechatApiController@getWxPost');
 Route::get('/wechat/getMsgList/', 'WechatApiController@getMsgList');
 
 Route::get('/wechat/account/list', 'WechatAccountController@getAccountList');
+Route::put('/wechat/account/{id}', 'WechatAccountController@updateAccount');
+Route::delete('/wechat/account/{id}', 'WechatAccountController@deleteAccount');
+Route::post('/wechat/account', 'WechatAccountController@insertAccount');
 Route::get('/wechat/statistics', 'WechatStatisticsController@getStatistics');
+Route::get('/wechat/msg', 'WechatMsgController@getList');
 
 Route::get('/weibo/account/list', 'WeiboAccountController@getAccountList');
+Route::put('/weibo/account/{id}', 'WeiboAccountController@updateAccount');
+Route::delete('/weibo/account/{id}', 'WeiboAccountController@deleteAccount');
+Route::post('/weibo/account', 'WeiboAccountController@insertAccount');
 Route::get('/weibo/statistics', 'WeiboStatisticsController@getStatistics');
+Route::get('/weibo/msg', 'WeiboMsgController@getList');
