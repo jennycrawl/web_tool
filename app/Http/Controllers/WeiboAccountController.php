@@ -14,7 +14,7 @@ class WeiboAccountController extends Controller
     {
         //$msgList = WeiboAccountTable::get()->toArray();    
         $msgList = array_map(function($row) {
-            $row['url'] = sprintf('https://m.weibo.cn/u/6545296757', $row['uid']);
+            $row['url'] = sprintf('https://m.weibo.cn/u/%s', $row['uid']);
             $row['crawl_time'] = date('Y-m-d', strtotime($row['update_time']));
             return $row;
         }, WeiboAccountTable::get()->toArray());
