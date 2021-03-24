@@ -115,21 +115,6 @@
         sortable>
       </el-table-column>
       <el-table-column
-        prop="forward_min"
-        label="最小转发数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="comment_min"
-        label="最小评论数"
-        sortable>
-      </el-table-column>
-      <el-table-column
-        prop="like_min"
-        label="最小点赞数"
-        sortable>
-      </el-table-column>
-      <el-table-column
         prop="crawl_time"
         label="抓取时间"
         sortable>
@@ -207,9 +192,6 @@
                 '最大转发数':'forward_max',
                 '最大评论数':'comment_max',
                 '最大点赞数':'like_max',
-                '最小转发数':'forward_min',
-                '最小评论数':'comment_min',
-                '最小点赞数':'like_min',
                 '抓取时间':'crawl_time',
             },
         }
