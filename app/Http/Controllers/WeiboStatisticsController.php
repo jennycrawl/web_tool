@@ -42,6 +42,7 @@ class WeiboStatisticsController extends Controller
         $endDate && $where[] = ['pubtime', '<', $endDate];
         $msgList = WeiboFeedTable::selectRaw($selectColmun)
             ->join('weibo_account', 'weibo_feed.account_id', '=', 'weibo_account.id') 
+                ->where('weibo_account.status', '=', WeiboAccountTable::STATUS_VALID)
             ->where($where)
             ->groupBy('weibo_feed.account_id')
             ->orderBy('weibo_feed.account_id')

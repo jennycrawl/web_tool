@@ -44,6 +44,7 @@ class WeiboMsgController extends Controller
             "weibo_feed.pubtime",
             "weibo_feed.update_time as crawl_time"
             )->join('weibo_account', 'weibo_feed.account_id', '=', 'weibo_account.id') 
+                ->where('weibo_account.status', '=', WeiboAccountTable::STATUS_VALID)
             ->where($where)
             ->orderBy($sortField, $sortOrder)
             ->paginate($perPage)->toArray();
