@@ -12,12 +12,12 @@ class WeiboAccountController extends Controller
     //
     public function getAccountList(Request $request)
     {
-        //$msgList = WeiboAccountTable::get()->toArray();    
+        //$msgList = WeiboAccountTable::get()->toArray();
         $msgList = array_map(function($row) {
             $row['url'] = sprintf('https://m.weibo.cn/u/%s', $row['uid']);
             $row['crawl_time'] = date('Y-m-d', strtotime($row['update_time']));
             return $row;
-        }, WeiboAccountTable::get()->toArray());
+        }, WeiboAccountTable::where('status', '=', WeiboAccountTable::STATUS_VALID)->get()->toArray());
         $result = ['success' => true, 'msg' => $msgList];
         return $result;
     }
@@ -46,7 +46,7 @@ class WeiboAccountController extends Controller
     public function updateAccount($id, Request $request)
     {
         $id = intval($id);
-        $account = WeiboAccountTable::where('id',$id)->first();    
+        $account = WeiboAccountTable::where('id',$id)->first();
         if (!$account) {
             //return response(['success' => false, 'msg' => '账号不存在'], 400)
             //    ->header('Content-Type', 'application/json');
@@ -76,7 +76,7 @@ class WeiboAccountController extends Controller
     public function deleteAccount($id, Request $request)
     {
         $id = intval($id);
-        $account = WeiboAccountTable::where('id',$id)->first();    
+        $account = WeiboAccountTable::where('id',$id)->first();
         if (!$account) {
             return ['success' => false, 'msg' => '账号不存在'];
         }
@@ -93,7 +93,7 @@ class WeiboAccountController extends Controller
             } else {
                 throw new \Exception('删除失败');
             }
-        } catch (\Exception $e) { 
+        } catch (\Exception $e) {
             DB::rollBack();
             return ['success' => false, 'msg' => $e->getMessage()];
         }
