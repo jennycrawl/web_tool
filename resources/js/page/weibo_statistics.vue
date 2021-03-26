@@ -121,6 +121,7 @@
       <el-table-column
         prop="crawl_time"
         label="抓取时间"
+        min-width="160"
         sortable>
       </el-table-column>
     </el-table>
