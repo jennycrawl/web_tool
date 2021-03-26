@@ -48,14 +48,14 @@
         fixed
         prop="id"
         label="id"
-        width="100%"
+        width="50"
         sortable>
       </el-table-column>
       <el-table-column
         fixed
         prop="name"
         label="名称"
-        width="100%"
+        width="150"
         >
       </el-table-column>
       <el-table-column
