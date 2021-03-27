@@ -42,6 +42,7 @@
     </el-form>
     <el-table
       :data="list"
+      max-height="650"
       fixed="left"
       style="width: 100%">
       <el-table-column
