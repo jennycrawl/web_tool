@@ -50,6 +50,7 @@
       <el-table-column
         prop="url"
         label="url"
+        min-width="240"
         >
         <template slot-scope="scope">
             <a :href="scope.row.url"
