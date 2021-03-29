@@ -80,7 +80,9 @@
       </el-table-column>
       <el-table-column
         prop="crawl_time"
-        label="抓取时间">
+        label="抓取时间"0
+        min-width="17"
+      >
       </el-table-column>
     </el-table>
     <el-pagination
