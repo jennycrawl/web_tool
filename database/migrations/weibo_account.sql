@@ -1,4 +1,4 @@
-/*
+weibo_feed.sql/*
  Navicat Premium Data Transfer
 
  Source Server         : 阿里云
